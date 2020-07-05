@@ -80,7 +80,7 @@ public class GirlController {
     }
 
 
-    // 新增check
+    // 新增check，表单验证
     @GetMapping("/addGirlValid")
     public String addGirlValid(@Valid Girl girl, BindingResult result) {
         if (result.hasErrors()) {
