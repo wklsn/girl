@@ -1,6 +1,7 @@
 package com.wkl.girl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,11 @@ public class GirlService {
         girlResp.save(girl1);
         Girl girl2 = new Girl("C", 14);
         girlResp.save(girl2);
+    }
+
+    public Girl getGirl() {
+        Girl girl1 = new Girl("S", 45);
+        return  girl1;
     }
 
 }

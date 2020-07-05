@@ -33,7 +33,9 @@ public class AspectGirl {
         logger.info("... Aspect logBefore getMethod:" + httpRequest.getMethod());
         logger.info("... Aspect logBefore getRemoteAddr:" + httpRequest.getRemoteAddr());
         logger.info("... Aspect logBefore getDeclaringTypeName:" + joinpoint.getSignature().getDeclaringTypeName() + " "+joinpoint.getSignature().getName());
-        logger.info("... Aspect logBefore getArgs:" + joinpoint.getArgs()[0].toString());
+        if (null != joinpoint.getArgs() && joinpoint.getArgs().length!=0) {
+            logger.info("... Aspect logBefore getArgs:" + joinpoint.getArgs()[0].toString());
+        }
     }
 
     @After("log()")

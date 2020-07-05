@@ -93,10 +93,16 @@ public class GirlController {
 
     // 异常处理
     @GetMapping("/addGirlEx")
-    public Result addGirlEx(@Valid Girl girl, BindingResult result) {
+    public Result addGirlEx(@Valid Girl girl, BindingResult result) throws Exception {
         System.out.println("exec addGirlEx");
         if (result.hasErrors()) {
-            return new Result("N", result.getFieldError().getDefaultMessage(), girl);
+            return new Result("E", "未满18岁", null);
+        }
+
+        if (girl.getAge() < 25 ) {
+            throw new GirlException(ResultEnum.GirAgeMiddle);
+        } else if (girl.getAge() > 60){
+            throw new GirlException(ResultEnum.GirAgeOld);
         }
 
         return new Result("Y", "成功", girlResp.save(girl));
