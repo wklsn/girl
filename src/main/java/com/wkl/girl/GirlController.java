@@ -1,9 +1,12 @@
 package com.wkl.girl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sun.util.resources.cldr.ga.TimeZoneNames_ga;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +17,9 @@ public class GirlController {
 
     @Autowired
     private GirlRepository girlResp;
+
+    @Autowired
+    private GirlService girlService;
 
     // 查询所有数据
     @GetMapping("/listGirls")
@@ -42,12 +48,20 @@ public class GirlController {
         return "增加Girls成功!";
     }
 
+    // 新增多条 事务
+    @GetMapping("/addGirlsTran")
+    public String addGirlsTran() {
+        girlService.insertTwo();
+        return "增加Girls事务成功!";
+    }
+
     @GetMapping("/delGirl")
     public String delGirl(@RequestParam("id") Integer id) {
         girlResp.deleteById(id);
         return "删除成功!";
     }
 
+    // 删除全部
     @GetMapping("/delGirls")
     public String delGirls() {
         girlResp.deleteAll();
@@ -65,4 +79,14 @@ public class GirlController {
         return "CupSize由：" + origin +"，修改为： " + girl.getCupSize();
     }
 
+
+    // 新增check
+    @GetMapping("/addGirlValid")
+    public String addGirlValid(@Valid Girl girl, BindingResult result) {
+        if (result.hasErrors()) {
+           return result.getFieldError().getDefaultMessage();
+        }
+        girlResp.save(girl);
+        return girl.toString();
+    }
 }
