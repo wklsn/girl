@@ -83,10 +83,23 @@ public class GirlController {
     // 新增check，表单验证
     @GetMapping("/addGirlValid")
     public String addGirlValid(@Valid Girl girl, BindingResult result) {
+        System.out.println("exec addGirlValid");
         if (result.hasErrors()) {
            return result.getFieldError().getDefaultMessage();
         }
         girlResp.save(girl);
         return girl.toString();
     }
+
+    // 异常处理
+    @GetMapping("/addGirlEx")
+    public Result addGirlEx(@Valid Girl girl, BindingResult result) {
+        System.out.println("exec addGirlEx");
+        if (result.hasErrors()) {
+            return new Result("N", result.getFieldError().getDefaultMessage(), girl);
+        }
+
+        return new Result("Y", "成功", girlResp.save(girl));
+    }
+
 }
