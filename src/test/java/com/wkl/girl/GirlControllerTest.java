@@ -10,6 +10,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+/**
+ * 测试controller
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -23,4 +26,5 @@ public class GirlControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/girl/listGirls")).andExpect(MockMvcResultMatchers.status().isOk());
         System.out.println("testListGirls 完成！");
     }
+
 }
